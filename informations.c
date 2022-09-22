@@ -29,7 +29,7 @@ void printCredits() {
 
 void printHistory() {
     printf("###############    HISTORIQUE   ###############\n");
-    FILE *file = fopen("history.txt", "r");
+    FILE *file = fopen("./history.txt", "r");
     if (file == NULL) {
         printf("[INFO] Aucune partie n'a été jouée.\n");
         return;
@@ -39,13 +39,14 @@ void printHistory() {
     int i = 1;
     while (fgets(line, sizeof(line), file)) {
         printf("Partie #%d - %s", i, line);
+        i++;
     }
 
     fclose(file);
 }
 
 void savePvPToHistory(char *winnerName, char *loserName, int hits, int nbAllumettes) {
-    FILE *file = fopen("history.txt", "a");
+    FILE *file = fopen("./history.txt", "a");
     if (file == NULL) {
         return;
     }
@@ -57,7 +58,7 @@ void savePvPToHistory(char *winnerName, char *loserName, int hits, int nbAllumet
 }
 
 void savePvEToHistory(char *winnerName, int hits, int nbAllumettes, int hasLose) {
-    FILE *file = fopen("history.txt", "a");
+    FILE *file = fopen("./3history.txt", "a");
     if (file == NULL) {
         return;
     }
