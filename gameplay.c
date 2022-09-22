@@ -1,6 +1,5 @@
+
 #include "gameplay.h"
-#include "informations.h"
-#include "utils.h"
 
 
 void play() {
@@ -78,6 +77,12 @@ void playHuman(int nbAllumettes) {
     printf("> Veuillez entrer le nom du joueur 2 : ");
     secure_scanf("%[^\n]", player2.name);
 
+    if (strcmp(player1.name, player2.name) == 0) {
+        printf("[INFO] Oh des jumeaux ! Nous allons quand même vous différencier.\n");
+        player1.name[strlen(player1.name)] = '1';
+        player2.name[strlen(player2.name)] = '2';
+    }
+
     printf("Vous allez maintenant commencer la partie !\n");
 
     int allumettesRestantes = nbAllumettes;
@@ -99,6 +104,7 @@ void playHuman(int nbAllumettes) {
         allumettesRestantes -= allumettesPrises;
         if (allumettesRestantes <= 0) {
             printf("[INFO] %s a gagné en %d coups !\n", player2.name, player2.hits);
+            savePvPToHistory(player2.name, player1.name, player2.hits, nbAllumettes);
             break;
         }
 
@@ -118,6 +124,7 @@ void playHuman(int nbAllumettes) {
         allumettesRestantes -= allumettesPrises;
         if (allumettesRestantes <= 0) {
             printf("[INFO] %s a gagné en %d coups !\n", player1.name, player1.hits);
+            savePvPToHistory(player1.name, player2.name, player1.hits, nbAllumettes);
             break;
         }
     }
@@ -177,6 +184,7 @@ void playComputer(int nbAllumettes) {
 
         if (allumettesRestantes <= 0) {
             printf("[INFO] FIN DE LA PARTIE : Vous avez perdu ! TROP NUL(LE) !!\n");
+            savePvEToHistory(player.name, player.hits, nbAllumettes, 0);
             break;
         }
 
@@ -213,15 +221,8 @@ void playComputer(int nbAllumettes) {
 
         if (allumettesRestantes <= 0) {
             printf("[INFO] FIN DE LA PARTIE : Vous avez gagné ! BRAVO !\n");
+            savePvEToHistory(player.name, player.hits, nbAllumettes, 1);
             break;
         }
     }
-}
-
-
-int promptForMenuChoice() {
-    int choice;
-    printf("> Votre choix : ");
-    secure_scanf("%d", &choice);
-    return choice;
 }

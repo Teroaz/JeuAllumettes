@@ -1,6 +1,5 @@
 #include "informations.h"
 
-
 void printMenu() {
     printf("###############      MENU       ###############\n");
     printf("Bonjour et bienvenue dans le jeu des allumettes !\n");
@@ -28,6 +27,51 @@ void printCredits() {
     printf("> Année : 2022-2023\n");
 }
 
+void printHistory() {
+    printf("###############    HISTORIQUE   ###############\n");
+    FILE *file = fopen("history.txt", "r");
+    if (file == NULL) {
+        printf("[INFO] Aucune partie n'a été jouée.\n");
+        return;
+    }
+
+    char line[256];
+    int i = 1;
+    while (fgets(line, sizeof(line), file)) {
+        printf("Partie #%d - %s", i, line);
+    }
+
+    fclose(file);
+}
+
+void savePvPToHistory(char *winnerName, char *loserName, int hits, int nbAllumettes) {
+    FILE *file = fopen("history.txt", "a");
+    if (file == NULL) {
+        return;
+    }
+
+    printf("[INFO] Sauvegarde de la partie dans l'historique...\n");
+
+    fprintf(file, "%s a gagné la partie contre %s en %d coups avec %d allumettes.\n", winnerName, loserName, hits, nbAllumettes);
+    fclose(file);
+}
+
+void savePvEToHistory(char *winnerName, int hits, int nbAllumettes, int hasLose) {
+    FILE *file = fopen("history.txt", "a");
+    if (file == NULL) {
+        return;
+    }
+
+
+    printf("[INFO] Sauvegarde de la partie dans l'historique...\n");
+    if (hasLose) {
+        fprintf(file, "%s a gagné la partie contre l'ordinateur en %d coups avec %d allumettes.\n", winnerName, hits, nbAllumettes);
+    } else {
+        fprintf(file, "%s a perdu la partie contre l'ordinateur avec %d allumettes.\n", winnerName, nbAllumettes);
+    }
+
+    fclose(file);
+}
 
 void printRemainingAllumettes (int allumettesRestantes) {
     for (int i = 0; i < 40; i++) {

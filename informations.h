@@ -7,5 +7,8 @@ void printMenu();
 void printRules();
 void printCredits();
 void printRemainingAllumettes(int);
+void printHistory();
+void savePvPToHistory(char *, char *, int, int);
+void savePvEToHistory(char *, int, int, int);
 
 #endif

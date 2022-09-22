@@ -10,9 +10,14 @@ int main() {
         printf("1 - Jouer\n");
         printf("2 - Voir les règles du jeu\n");
         printf("3 - Voir les crédits\n");
-        printf("4 - Quitter\n");
+        printf("4 - Afficher l'historique des parties\n");
+        printf("5 - Quitter\n");
 
-        switch (promptForMenuChoice()) {
+        int choice;
+        printf("> Votre choix :\n");
+        scanf("%d", &choice);
+
+        switch (choice) {
             case 1:
                 play();
                 break;
@@ -23,6 +28,9 @@ int main() {
                 printCredits();
                 break;
             case 4:
+                printHistory();
+                break;
+            case 5:
                 printf("[INFO] Merci d'avoir joué !\n");
                 return 0;
             default:
