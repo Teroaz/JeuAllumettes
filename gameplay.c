@@ -136,7 +136,7 @@ void playComputer(int nbAllumettes) {
     Player player = {"Joueur", 0, nbAllumettes};
     printf("[INFO] Vous avez choisi de jouer contre l'ordinateur.\n");
     printf("> Veuillez entrer votre nom : ");
-    fgets(player.name, 100, stdin);
+    secure_scanf("%[^\n]", player.name);
 
     int difficulty;
     do {
